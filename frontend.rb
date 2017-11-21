@@ -1,6 +1,8 @@
 require "unirest"
 require "pp"
 
+base_url = "http://localhost:3000/v1"
+
 puts "Choose an option:"
 puts "[1] Show all contacts"
 puts "[2] Create a contact"
@@ -10,7 +12,7 @@ puts "[5] Destroy a contact"
 
 input_option = gets.chomp
 if input_option == "1"
-  response = Unirest.get("http://localhost:3000/contacts")
+  response = Unirest.get("#{base_url}/contacts")
   contacts = response.body
   pp contacts
 elsif input_option == "2"
@@ -23,19 +25,19 @@ elsif input_option == "2"
   params[:email] = gets.chomp
   print "New contact phone number: "
   params[:phone_number] = gets.chomp
-  response = Unirest.post("http://localhost:3000/contacts", parameters: params)
+  response = Unirest.post("#{base_url}/contacts", parameters: params)
   contact = response.body
   pp contact
 elsif input_option == "3"
   print "Enter a contact id: "
   contact_id = gets.chomp
-  response = Unirest.get("http://localhost:3000/contacts/#{contact_id}")
+  response = Unirest.get("#{base_url}/contacts/#{contact_id}")
   contact = response.body
   pp contact
 elsif input_option == "4"
   print "Enter a contact id: "
   contact_id = gets.chomp
-  response = Unirest.get("http://localhost:3000/contacts/#{contact_id}")
+  response = Unirest.get("#{base_url}/contacts/#{contact_id}")
   contact = response.body
   params = {}
   print "Updated first name (#{contact["first_name"]}): "
@@ -47,12 +49,12 @@ elsif input_option == "4"
   print "Updated phone number (#{contact["phone_number"]}): "
   params[:phone_number] = gets.chomp
   params.delete_if { |_key, value| value.empty? }
-  response = Unirest.patch("http://localhost:3000/contacts/#{contact_id}", parameters: params)
+  response = Unirest.patch("#{base_url}/contacts/#{contact_id}", parameters: params)
   contact = response.body
   pp contact
 elsif input_option == "5"
   print "Enter a contact id: "
   contact_id = gets.chomp
-  response = Unirest.delete("http://localhost:3000/contacts/#{contact_id}")
+  response = Unirest.delete("#{base_url}/contacts/#{contact_id}")
   pp response.body
 end
