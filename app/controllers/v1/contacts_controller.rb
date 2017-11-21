@@ -11,6 +11,7 @@ class V1::ContactsController < ApplicationController
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
+      bio: params[:bio]
     )
     contact.save
     render json: contact.as_json
@@ -28,6 +29,7 @@ class V1::ContactsController < ApplicationController
     contact.last_name = params[:last_name] || contact.last_name
     contact.email = params[:email] || contact.email
     contact.phone_number = params[:phone_number] || contact.phone_number
+    contact.bio = params[:bio] || contact.bio
     contact.save
     render json: contact.as_json
   end

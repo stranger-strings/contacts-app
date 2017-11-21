@@ -17,6 +17,7 @@ class Contact < ApplicationRecord
       email: email,
       phone_number: phone_number,
       japan_phone_number: japan_phone_number,
+      bio: bio
     }
   end
 end

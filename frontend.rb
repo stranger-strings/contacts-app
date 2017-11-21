@@ -27,6 +27,8 @@ elsif input_option == "2"
   params[:email] = gets.chomp
   print "New contact phone number: "
   params[:phone_number] = gets.chomp
+  print "New contact bio: "
+  params[:bio] = gets.chomp
   response = Unirest.post("#{base_url}/contacts", parameters: params)
   contact = response.body
   pp contact
@@ -52,6 +54,8 @@ elsif input_option == "4"
   params[:email] = gets.chomp
   print "Updated phone number (#{contact["phone_number"]}): "
   params[:phone_number] = gets.chomp
+  print "Updated bio (#{contact["bio"]}): "
+  params[:bio] = gets.chomp
   params.delete_if { |_key, value| value.empty? }
   response = Unirest.patch("#{base_url}/contacts/#{contact_id}", parameters: params)
   contact = response.body
