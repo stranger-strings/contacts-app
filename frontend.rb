@@ -19,6 +19,8 @@ elsif input_option == "2"
   params = {}
   print "New contact first name: "
   params[:first_name] = gets.chomp
+  print "New contact middle name: "
+  params[:middle_name] = gets.chomp
   print "New contact last name: "
   params[:last_name] = gets.chomp
   print "New contact email: "
@@ -42,6 +44,8 @@ elsif input_option == "4"
   params = {}
   print "Updated first name (#{contact["first_name"]}): "
   params[:first_name] = gets.chomp
+  print "Updated middle name (#{contact["middle_name"]}): "
+  params[:middle_name] = gets.chomp
   print "Updated last name (#{contact["last_name"]}): "
   params[:last_name] = gets.chomp
   print "Updated email (#{contact["email"]}): "
