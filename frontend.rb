@@ -11,6 +11,8 @@ while true
   puts "[3] Show a contact"
   puts "[4] Update a contact"
   puts "[5] Destroy a contact"
+  puts
+  puts "[signup] Sign up (create a user)"
   puts 
   puts "[q] Quit"
 
@@ -68,6 +70,25 @@ while true
     print "Enter a contact id: "
     contact_id = gets.chomp
     response = Unirest.delete("#{base_url}/contacts/#{contact_id}")
+    pp response.body
+  elsif input_option == "signup"
+    print "Enter name: "
+    input_name = gets.chomp
+    print "Enter email: "
+    input_email = gets.chomp
+    print "Enter password: "
+    input_password = gets.chomp
+    print "Confirm password: "
+    input_password_confirmation = gets.chomp
+    response = Unirest.post(
+      "#{base_url}/users",
+      parameters: {
+        name: input_name,
+        email: input_email,
+        password: input_password,
+        password_confirmation: input_password_confirmation
+      }
+    )
     pp response.body
   elsif input_option == "q"
     puts "Goodbye!"  
