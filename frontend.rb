@@ -13,6 +13,8 @@ while true
   puts "[5] Destroy a contact"
   puts
   puts "[signup] Sign up (create a user)"
+  puts "[login] Log in (create a jwt)"
+  puts "[logout] Log out (destroy the jwt)"
   puts 
   puts "[q] Quit"
 
@@ -90,6 +92,30 @@ while true
       }
     )
     pp response.body
+  elsif input_option == "login"
+    print "Enter email: "
+    input_email = gets.chomp
+    print "Enter password: "
+    input_password = gets.chomp
+
+    response = Unirest.post(
+      "http://localhost:3000/user_token",
+      parameters: {
+        auth: {
+          email: input_email,
+          password: input_password
+        }
+      }
+    )
+    # Save the JSON web token from the response
+    jwt = response.body["jwt"]
+    # Include the jwt in the headers of any future web requests
+    Unirest.default_header("Authorization", "Bearer #{jwt}")
+    pp response.body
+  elsif input_option == "logout"
+    jwt = ""
+    Unirest.clear_default_headers()
+    puts "Logged out successfully!"
   elsif input_option == "q"
     puts "Goodbye!"  
     break
